@@ -40,28 +40,43 @@
               <div id="dismiss">
                   <i class="fa fa-arrow-left"></i>
               </div>
-
-              <ul class="list-unstyled components">
-
-                  <li">
-                      <a href="{% url 'home' %}">Inicio</a>
-                  </li>
+                <ul class="list-unstyled components">
+                    <li class="">
+                        <a href="{% url 'home' %}">Inicio</a>
+                    </li>
                   <li>
                       <a href="{% url 'menu' %}">Menú de platos</a>
                   </li>
                   <li>
                       <a href="{% url 'contacto' %}">Contáctanos</a>
                   </li>
-                    <li>
-                      <a href="">Registrarse</a>
-                  </li>
-                    <li>
-                      <a href="{% url 'login' %}">Iniciar sesión</a>
-                  </li> 
-              </ul>
 
+<!-- Comandos de django para que el usuario pueda iniciar sesión y desloguearse. -->
+                  {% if user.is_authenticated %}
+                  <li>
+                    <!-- Comando para que aparezca el username en el navbar-->
+                     <a href="#">@{{ user.username }}</a>
+                  </li>
+                  <li>  
+                    <a href="{% url 'logout' %}">Cerrar sesión</a>
+                  </li>
+                  {% else %}
+                  <li>
+                    <a href="{% url 'login' %}">Iniciar sesión</a>
+                  </li>
+                    
+                  {% endif %}
+              </ul>
           </nav>
       </div>
+
+      
+      
+
+      
+    </div>
+  </div>
+</nav>
 
   <div id="content">
   <!-- header -->
@@ -70,7 +85,7 @@
           <div class="row">
               <div class="col-md-3">
                   <div class="full">
-                      <a class="logo" href="index.html"><img src="{% static 'app/images/logo.png' %}" alt="#" /></a>
+                      <a class="logo" href="{% url 'home' %}"><img src="{% static 'app/images/logo.png' %}" alt="#" /></a>
                   </div>
               </div>
               <div class="col-md-9">
@@ -80,7 +95,12 @@
                               <li class="dinone">Contáctanos: <img style="margin-right: 15px;margin-left: 15px;" src="{% static 'app/images/phone_icon.png' %}" alt="#"><a href="#">987-654-3210</a></li>
                               <li class="dinone"><img style="margin-right: 15px;" src="{% static 'app/images/mail_icon.png' %}" alt="#"><a href="#">demo@gmail.com</a></li>
                               <li class="dinone"><img style="margin-right: 15px;height: 21px;position: relative;top: -2px;" src="{% static 'app/images/location_icon.png' %}" alt="#"><a href="#">104 New york , USA</a></li>
-                              <li class="button_user"><a class="button active" href="#">Log in</a><a class="button" href="#">Registrarse</a></li>
+
+                              {% if user.is_authenticated %}
+                              <li class="button_user"><a class="button active" href="{% url 'logout' %}">Cerrar sesión</a>
+                              {% else %}
+                              <li class="button_user"><a class="button active" href="{% url 'login' %}">Log in</a><a class="button" href="{% url 'registro'%}">Registrarse</a></li>
+                              {% endif %}
                               <li>
                                   <button type="button" id="sidebarCollapse">
                                       <img src="{% static 'app/images/menu_icon.png' %}" alt="#">
