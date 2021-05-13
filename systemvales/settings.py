@@ -74,6 +74,10 @@ WSGI_APPLICATION = 'systemvales.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+#!!!!!!!!!!!!!!!!
+#Cámbienle el nombre en user y la contraseña en password
+#!!!!!!!!!!!!!!!
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.oracle',
