@@ -1,0 +1,54 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block css %}
+{% endblock %}
+
+{% block contenido %}
+{% load crispy_forms_tags %}
+
+
+
+<!-- footer -->
+<fooetr>
+    <div class="footer">
+        <div class="container-fluid">
+            <div class="row">
+              <div class=" col-md-12">
+                <h2>Request  A<strong class="white"> Call  Back</strong></h2>
+              </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                  
+                    <form method="POST" class="formulario_contacto">
+                        <div class="row">
+
+                            {% csrf_token %}
+
+                            {{ form | crispy }}
+                        
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                <button type="submit" id="btnEnviar" class="button">Send</button>
+                            </div>
+                        
+                        
+                         </form>
+                         {{mensaje}}
+                         <table id="tablacontactos"></table>
+                           
+                        </div>
+                    </form>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                    <div class="img-box">
+                        <figure><img src="{% static 'app/images/img.jpg' %}" alt="img" /></figure>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </fooetr>
+  <!-- end footer -->
+{% endblock %}  
+
+{% block js %}
+{% endblock %}
