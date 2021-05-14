@@ -6,7 +6,27 @@
 #   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
 # Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
+from django.db.models.base import Model
 
+opciones_consultas = [
+    [0, "Consulta"],
+    [1, "Reclamo"],
+    [2, "Sugerencia"],
+    [3, "Felicitaciones"],
+    [4, "Otro motivo"]
+    
+]
+
+class Contacto(models.Model):
+    nombre = models.CharField(max_length=50)
+    correo = models.EmailField()
+    tipo_consulta = models.IntegerField(choices=opciones_consultas)
+    mensaje = models.TextField()
+    avisos = models.BooleanField()
+
+
+    def __str__(self):
+        return self.nombre 
 
 class Cargo(models.Model):
     id_cargo = models.IntegerField(primary_key=True)

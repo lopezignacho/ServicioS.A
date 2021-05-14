@@ -27,19 +27,40 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+<<<<<<< HEAD
+=======
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+>>>>>>> master
 
 # Application definition
 
 INSTALLED_APPS = [
+<<<<<<< HEAD
+=======
+    'admin_interface',
+>>>>>>> master
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+<<<<<<< HEAD
     'app'
 ]
 
+=======
+    'app.apps.AppConfig',
+    'colorfield',
+    'crispy_forms',
+]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+X_FRAME_OPTIONS='SAMEORIGIN'
+
+>>>>>>> master
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -82,8 +103,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.oracle',
         'NAME': '127.0.0.1:1521/xe',
-        'USER': 'c##Libreria',
-        'PASSWORD': 'olakease',
+        'USER': 'C##DATABASESA',
+        'PASSWORD': 'admin',
         'TEST': {
             'USER': 'default_test',
             'TBLSPACE': 'default_test_tbls',

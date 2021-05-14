@@ -2,10 +2,13 @@
 {% load static %}
 
 {% block css %}
-
 {% endblock %}
 
 {% block contenido %}
+{% load crispy_forms_tags %}
+
+
+
 <!-- footer -->
 <fooetr>
     <div class="footer">
@@ -16,24 +19,22 @@
               </div>
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
                   
-                    <form class="main_form">
+                    <form method="POST" class="formulario_contacto">
                         <div class="row">
-                         
+
+                            {% csrf_token %}
+
+                            {{ form | crispy }}
+                        
                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-                                <input class="form-control" placeholder="Name" type="text" name="Name">
+                                <button type="submit" id="btnEnviar" class="button">Send</button>
                             </div>
-                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-                                <input class="form-control" placeholder="Email" type="text" name="Email">
-                            </div>
-                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-                                <input class="form-control" placeholder="Phone" type="text" name="Phone">
-                            </div>
-                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-                                <textarea class="textarea" placeholder="Message" type="text" name="Message"></textarea>
-                            </div>
-                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-                                <button class="send">Send</button>
-                            </div>
+                        
+                        
+                         </form>
+                         {{mensaje}}
+                         <table id="tablacontactos"></table>
+                           
                         </div>
                     </form>
                 </div>
