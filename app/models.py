@@ -68,7 +68,7 @@ class Empleado(models.Model):
 
 
 class Perfil(models.Model):
-    id_perfil = models.BooleanField(primary_key=True)
+    id_perfil = models.IntegerField(primary_key=True)
     nombre = models.CharField(max_length=30)
     descripcion = models.CharField(max_length=60)
 
@@ -88,7 +88,7 @@ class Servicio(models.Model):
 
 
 class Sucursal(models.Model):
-    id_sucursal = models.BooleanField(primary_key=True)
+    id_sucursal = models.IntegerField(primary_key=True)
     direccion = models.CharField(max_length=60)
 
     class Meta:
@@ -97,9 +97,9 @@ class Sucursal(models.Model):
 
 
 class Turno(models.Model):
-    id_turno = models.BooleanField(primary_key=True)
-    hora_ini = models.DateField()
-    hora_ter = models.DateField()
+    id_turno = models.IntegerField(primary_key=True)
+    hora_ini = models.TimeField()
+    hora_ter = models.TimeField()
 
     class Meta:
         managed = False
@@ -120,7 +120,7 @@ class Vale(models.Model):
 class Venta(models.Model):
     n_venta = models.IntegerField(primary_key=True)
     vale_id_vale = models.ForeignKey(Vale, models.DO_NOTHING, db_column='vale_id_vale')
-    fecha = models.DateField()
+    fecha = models.DateTimeField()
 
     class Meta:
         managed = False
