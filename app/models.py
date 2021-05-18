@@ -56,7 +56,7 @@ class Empleado(models.Model):
     turno_id_turno = models.ForeignKey('Turno', models.DO_NOTHING, db_column='turno_id_turno')
     password = models.CharField(max_length=20)
     nombre = models.CharField(max_length=20)
-    apellido_p = models.CharField(max_length=2)
+    apellido_p = models.CharField(max_length=20)
     apellido_m = models.CharField(max_length=20)
     email = models.CharField(max_length=50)
     rut_sin_dv = models.IntegerField()
@@ -121,6 +121,10 @@ class Venta(models.Model):
     n_venta = models.IntegerField(primary_key=True)
     vale_id_vale = models.ForeignKey(Vale, models.DO_NOTHING, db_column='vale_id_vale')
     fecha = models.DateTimeField()
+    subtotal = models.IntegerField()
+    iva = models.IntegerField()
+    detalles = models.CharField(max_length=80)
+
 
     class Meta:
         managed = False
