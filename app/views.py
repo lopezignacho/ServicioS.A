@@ -4,12 +4,15 @@ from django.http import HttpResponse
 from .forms import CustomUserCreationForm
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required, permission_required
 
 # Create your views here.
 
+@login_required
 def home(request):
     return render(request, 'app/home.html')
 
+@login_required
 def contacto(request):
     data = {
         'form': ContactoForm()
@@ -25,6 +28,7 @@ def contacto(request):
             
     return render(request, 'app/contacto.html', data)
 
+@login_required
 def menu(request):
     return render(request, 'app/menu.html')
 
