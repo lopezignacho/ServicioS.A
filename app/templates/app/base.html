@@ -50,7 +50,11 @@
                   <li>
                       <a href="{% url 'contacto' %}">Contáctanos</a>
                   </li>
-
+                  {% if perms.auth.add_user %}
+                  <li>
+                      <a href="{% url 'registro' %}">Registrar Usuario</a>
+                  </li>
+                  {% endif %}
 <!-- Comandos de django para que el usuario pueda iniciar sesión y desloguearse. -->
                   {% if user.is_authenticated %}
                   <li>

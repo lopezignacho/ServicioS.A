@@ -32,6 +32,7 @@ def contacto(request):
 def menu(request):
     return render(request, 'app/menu.html')
 
+@permission_required('auth.add_user')
 def registro(request):
     data = {
         'form': CustomUserCreationForm()
@@ -42,7 +43,6 @@ def registro(request):
         if formulario.is_valid():
             formulario.save()
             user = authenticate(username=formulario.cleaned_data["username"], password=formulario.cleaned_data["password1"])
-            login(request, user)
             messages.success(request, "Te has registrado correctamente.")
             return redirect(to="home")
         data["form"] = formulario
