@@ -29,6 +29,8 @@
         <link rel="stylesheet" href="{% static 'app/css/style.css' %}">
         <!-- responsive-->
         <link rel="stylesheet" href="{% static 'app/css/responsive.css' %}">
+        {% block css %}
+        {% endblock %}
 </head> 
 
 <body class="main-layout">
@@ -53,6 +55,11 @@
                   {% if perms.auth.add_user %}
                   <li>
                       <a href="{% url 'registro' %}">Registrar Usuario</a>
+                  </li>
+                  {% endif %}
+                  {% if perms.auth.view_user %}
+                  <li>
+                      <a href="{% url 'listado_usuarios' %}">Listado de Usuarios</a>
                   </li>
                   {% endif %}
 <!-- Comandos de django para que el usuario pueda iniciar sesión y desloguearse. -->
@@ -120,11 +127,28 @@
   <!-- end header -->
 </body>
 
+{% block js %}
+{% endblock %}
+
 {% block contenido %}
 {% endblock %}
 
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+{% if messages %}
+    {% for m in messages %}
+        <script>
+            swal.fire({
+                "title": "Felicitaciones",
+                "text": "{{m}}",
+                "icon": "success"
+            })
+        </script>
+    {% endfor %}
+{% endif %}
+
 <!-- footer -->
-<fooetr>
+<footer>
   <div class="footer">
       <div class="container-fluid">
           <div class="row">
@@ -150,7 +174,7 @@
           </div>
       </div>
   </div>
-</fooetr>
+</footer>
 <!-- end footer -->
 
 {% block javascript %}

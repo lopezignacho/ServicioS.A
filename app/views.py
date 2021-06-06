@@ -1,10 +1,11 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .forms import ContactoForm
 from django.http import HttpResponse
 from .forms import CustomUserCreationForm
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth.models import User
 
 # Create your views here.
 
@@ -51,3 +52,20 @@ def registro(request):
 
 def iniciarsesion(request):
     return redirect(request, 'registration/login.html')
+
+def listado_usuarios(request):
+
+    users = User.objects.all()
+
+    data = {
+        'users': users
+    }
+
+    return render(request, 'app/listado_usuarios.html', data)
+
+@permission_required('auth.delete_user')
+def eliminar_usuario(request, id):
+    user = get_object_or_404(User, id=id)
+    user.delete()
+    messages.success(request, "Eliminado correctamente")
+    return redirect(to="listado_usuarios")
