@@ -41,7 +41,6 @@
             <tr>
                 <th>Nombre</th>
                 <th>ID</th>
-                <th>Contraseña (encriptada)</th>
                 <th>Fecha de creación</th>
             </tr>
 
@@ -49,7 +48,6 @@
             <tr>
                 <td>{{ p.username }}</td>
                 <td>{{ p.id }}</td>
-                <td>{{ p.password }}</td>
                 <td>{{ p.date_joined }}</td>
                 <td>
                     {% if perms.auth.delete_user %}
