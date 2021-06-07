@@ -9,6 +9,7 @@ from django.contrib.auth.models import User
 
 # Create your views here.
 
+#pedimos login
 @login_required
 def home(request):
     return render(request, 'app/home.html')
