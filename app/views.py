@@ -7,6 +7,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.models import User
 from django.db import connection
+import cx_Oracle
 
 # Create your views here.
 
@@ -35,21 +36,29 @@ def menu(request):
     return render(request, 'app/menu.html')
 
 @permission_required('auth.add_user')
-def registro(request):
-    data = {
-        'form': CustomUserCreationForm()
-    }
+def agregar_usuario(username, nombre, apellido, correo, clave):
+    django_cursor = connection.cursor()
+    cursor = django_cursor.connection.cursor()
+    salida = cursor.var(cx_Oracle.NUMBER) 
+    cursor.callproc('SP_AGREGAR_USUARIO',[username, nombre, apellido, correo, clave, salida]) 
+    return salida.getvalue()
 
-    if request.method == "POST":
-        formulario = CustomUserCreationForm(data=request.POST)
-        if formulario.is_valid():
-            formulario.save()
-            user = authenticate(username=formulario.cleaned_data["username"], password=formulario.cleaned_data["password1"])
-            messages.success(request, "Te has registrado correctamente.")
-            return redirect(to="home")
-        data["form"] = formulario
-    
-    return render(request, 'registration/registro.html', data)
+def registro(request):
+
+    #agregar_usuario
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        nombre = request.POST.get('nombre')
+        apellido = request.POST.get('apellido')
+        correo = request.POST.get('correo')
+        clave = request.POST.get('clave')
+        salida = agregar_usuario(username, nombre, apellido, correo, clave)
+        if salida == 1:
+            print ('se ha registrado el usuario')
+        else:
+            print ('no se ha podido guardar')
+
+    return render(request, 'registration/registro.html')
 
 def iniciarsesion(request):
     return redirect(request, 'registration/login.html')

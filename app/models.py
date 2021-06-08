@@ -17,8 +17,11 @@ opciones_consultas = [
     
 ]
 class Usuario(models.Model):
+    username = models.CharField(max_length=40)
     nombre = models.CharField(max_length=40)
-    password = models.CharField(max_length=16)
+    apellido = models.CharField(max_length=40)
+    correo = models.EmailField()
+    clave = models.CharField(max_length=16)
 
     def __str__(self):
         return self.nombre

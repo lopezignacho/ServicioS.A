@@ -13,14 +13,18 @@
         <br>
         <table class="table table-striped table-hover table-responsive-small">
             <tr>
+                <th>Nombre Usuario</th>
                 <th>Nombre</th>
-                <th>ID</th>
+                <th>Apellido</th>
+                <th>Correo</th>
             </tr>
 
             {% for l in listado_usuario %}
             <tr>
                 <td>{{ l.1 }}</td>
                 <td>{{ l.2 }}</td>
+                <td>{{ l.3 }}</td>
+                <td>{{ l.4 }}</td>
             </tr>
             {% endfor %}
         </table>
