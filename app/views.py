@@ -6,10 +6,10 @@ from django.contrib.auth import authenticate, login
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.models import User
+from django.db import connection
 
 # Create your views here.
 
-#pedimos login
 @login_required
 def home(request):
     return render(request, 'app/home.html')
@@ -55,14 +55,23 @@ def iniciarsesion(request):
     return redirect(request, 'registration/login.html')
 
 def listado_usuarios(request):
-
-    users = User.objects.all()
-
     data = {
-        'users': users
+        'listado_usuario':sp_listado_usuarios()
     }
-
     return render(request, 'app/listado_usuarios.html', data)
+
+def sp_listado_usuarios():
+    django_cursor = connection.cursor()
+    cursor = django_cursor.connection.cursor()
+    out_cur = django_cursor.connection.cursor()
+
+    cursor.callproc("SP_LIStADO_USUARIOS", [out_cur])
+
+    lista = []
+    for fila in out_cur:
+        lista.append(fila)
+
+    return lista
 
 @permission_required('auth.delete_user')
 def eliminar_usuario(request, id):

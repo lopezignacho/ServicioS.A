@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Cargo, DetalleVale, Empleado, Perfil, Servicio, Sucursal, Turno, Vale, Venta, Contacto
+from .models import Cargo, Usuario, DetalleVale, Empleado, Perfil, Servicio, Sucursal, Turno, Vale, Venta, Contacto
 
 # Register your models here.
 admin.site.register(Cargo)
@@ -12,6 +12,7 @@ admin.site.register(Turno)
 admin.site.register(Vale)
 admin.site.register(Venta)
 admin.site.register(Contacto)
+admin.site.register(Usuario)
 
 
 class ProductoAdmin(admin.ModelAdmin):

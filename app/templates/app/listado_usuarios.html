@@ -1,31 +1,5 @@
 {% extends 'app/base.html' %}
 
-{% load static %}
-
-{% block css %}
-{% endblock %}
-
-{% block js %}
-<script>
-    function eliminarUsuario(id) {
-        Swal.fire({
-            "title": "Estás seguro?",
-            "text": "Esta acción no se puede deshacer",
-            "icon": "question",
-            "showCancelButton": true,
-            "cancelButtonText": "No, Cancelar",
-            "confirmButtonText": "Sí, Eliminar",
-            "reverseButtons": true,
-            "confirmButtonColor": "#dc3545" 
-        })
-        .then(function(result){
-            if(result.isConfirmed){
-                window.location.href= "/eliminar-usuario/"+id+"/"
-            }
-        })
-    }
-</script>
-{% endblock %}
 
 {% block contenido %}
 <br>
@@ -41,27 +15,15 @@
             <tr>
                 <th>Nombre</th>
                 <th>ID</th>
-                <th>Fecha de creación</th>
             </tr>
 
-            {% for p in users %}
+            {% for l in listado_usuario %}
             <tr>
-                <td>{{ p.username }}</td>
-                <td>{{ p.id }}</td>
-                <td>{{ p.date_joined }}</td>
-                <td>
-                    {% if perms.auth.delete_user %}
-                    <a href="#" onclick="eliminarUsuario({{ p.id }})" class="btn btn-danger btn-sm">Eliminar</a>
-                    {% endif %}
-                </td>
+                <td>{{ l.1 }}</td>
+                <td>{{ l.2 }}</td>
             </tr>
             {% endfor %}
-
-            <tr>
-
-            </tr>
         </table>
     </div>
 </div>
 {% endblock %}
-

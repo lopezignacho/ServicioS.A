@@ -16,6 +16,12 @@ opciones_consultas = [
     [4, "Otro motivo"]
     
 ]
+class Usuario(models.Model):
+    nombre = models.CharField(max_length=40)
+    password = models.CharField(max_length=16)
+
+    def __str__(self):
+        return self.nombre
 
 class Contacto(models.Model):
     nombre = models.CharField(max_length=50)
