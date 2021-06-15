@@ -88,6 +88,3 @@ def eliminar_usuario(request, id):
     user.delete()
     messages.success(request, "Eliminado correctamente")
     return redirect(to="listado_usuarios")
-
-def usuario(request):
-    return render(request, 'app/usuario.html')

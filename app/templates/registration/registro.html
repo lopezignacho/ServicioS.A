@@ -2,31 +2,43 @@
 
 {% block contenido %}
 <br>
-<br>
-<br>
-<br>
-<td></td>
-<h2>Registro Usuarios</h2>
-<form action="" method="POST">
-    {% csrf_token %}
+<div class="card">
+    <div class="card-body">
+        <h2>Registro Usuarios</h2>
+        <div class="row">
+            <div class="col-12 col-md-6 offset-md-3">
 
-    <label for="">Username</label>
-    <input type="text" name="username">
-    <br>
-    <label for="">Nombre</label>
-    <input type="text" name="nombre">
-    <br>
-    <label for="">Apellido</label>
-    <input type="text" name="apellido">
-    <br>
-    <label for="">Correo</label>
-    <input type="text" name="correo">
-    <br>
-    <label for="">Password</label>
-    <input type="text" name="clave">
-    <br>
-    <input type="submit" value="Guardar">
+                <form action="" method="POST">
+                    {% csrf_token %}
+                
+                    <label for="">Username</label>
+                    <input type="text" name="username">
+                    <br>
+                    <label for="">Nombre</label>
+                    <input type="text" name="nombre">
+                    <br>
+                    <label for="">Apellido</label>
+                    <input type="text" name="apellido">
+                    <br>
+                    <label for="">Correo</label>
+                    <input type="text" name="correo">
+                    <br>
+                    <label for="">Password</label>
+                    <input type="text" name="clave">
+                    <br>
+                    <div class="d-flex justify-content-center">
+                        <input type="submit" value="Guardar" class="btn btn-primary">
+                        &nbsp;
+                        <input type="reset" value="Cancelar" class="btn btn-secondary">
+                    </div>
+                
+                </form>
 
-</form>
+            </div>
+        </div>
+
+
+    </div>
+</div>
 
 {% endblock %}
