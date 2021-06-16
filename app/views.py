@@ -67,7 +67,7 @@ def listado_usuarios(request):
     data = {
         'listado_usuario':sp_listado_usuarios()
     }
-    return render(request, 'app/listado_usuarios.html', data)
+    return render(request, 'registration/listado_usuarios.html', data)
 
 def sp_listado_usuarios():
     django_cursor = connection.cursor()
@@ -84,7 +84,16 @@ def sp_listado_usuarios():
 
 @permission_required('auth.delete_user')
 def eliminar_usuario(request, id):
-    user = get_object_or_404(User, id=id)
-    user.delete()
-    messages.success(request, "Eliminado correctamente")
-    return redirect(to="listado_usuarios")
+    id = request.GET.get('id')
+    django_cursor = connection.cursor()
+    cursor = django_cursor.connection.cursor()
+    cursor.callproc('SP_ELIMINAR_USUARIO',[id])
+    return render(request, 'registration/eliminar_usuario.html')
+
+@permission_required('auth.change_user')
+def modificar_usuario(username, nombre, apellido, correo, clave):
+    django_cursor = connection.cursor()
+    cursor = django_cursor.connection.cursor()
+    salidaUpdate = cursor.var(cx_Oracle.NUMBER)
+    cursor.callproc('SP_MODIFICAR_USUARIO', [username, nombre, apellido, correo, clave])
+    return salidaUpdate.getvalue()
