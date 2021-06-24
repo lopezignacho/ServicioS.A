@@ -2,43 +2,33 @@
 
 {% block contenido %}
 <br>
-<div class="row">
-    <div class="col-12 col-md-6 offset-md-3">
-        <div class="card">
-            <h2>Registro Usuarios</h2>
-            <hr>
-                <div class="card-body">
-                <form action="" method="POST">
-                    {% csrf_token %}
-                
-                    <label for="">Username</label>
-                    <input type="text" name="username">
-                    <br>
-                    <label for="">Nombre</label>
-                    <input type="text" name="nombre">
-                    <br>
-                    <label for="">Apellido</label>
-                    <input type="text" name="apellido">
-                    <br>
-                    <label for="">Correo</label>
-                    <input type="text" name="correo">
-                    <br>
-                    <label for="">Password</label>
-                    <input type="text" name="clave">
-                    <br>
-                    <div class="d-flex justify-content-end">
-                        <input type="reset" value="Cancelar" class="btn btn-secondary">
-                        &nbsp;
-                        <input type="submit" value="Guardar" class="btn btn-primary">
-                    </div>
-                
-                </form>
+<br>
+<br>
+<br>
+<td></td>
 
-            </div>
-        </div>
+<h2>Registro Usuarios</h2>
+<form action="" method="POST">
+    {% csrf_token %}
 
+    <label for="">Username</label>
+    <input type="text" name="username">
+    <br>
+    <label for="">Nombre</label>
+    <input type="text" name="nombre">
+    <br>
+    <label for="">Apellido</label>
+    <input type="text" name="apellido">
+    <br>
+    <label for="">Correo</label>
+    <input type="text" name="correo">
+    <br>
+    <label for="">Password</label>
+    <input type="text" name="clave">
+    <br>
+    <input type="submit" value="Guardar">
 
-    </div>
-</div>
+</form>
+{{mens}}
 
 {% endblock %}

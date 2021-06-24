@@ -13,6 +13,7 @@ import cx_Oracle
 
 @login_required
 def home(request):
+    agregar_usuario('lalos', 'palla', 'pollo', 'zz@hot.cl', 321)
     return render(request, 'app/home.html')
 
 @login_required
@@ -35,7 +36,7 @@ def contacto(request):
 def menu(request):
     return render(request, 'app/menu.html')
 
-@permission_required('auth.add_user')
+#@permission_required('auth.add_user')   Error de registro al tener comando (error en '_user' )
 def agregar_usuario(username, nombre, apellido, correo, clave):
     django_cursor = connection.cursor()
     cursor = django_cursor.connection.cursor()
@@ -43,31 +44,38 @@ def agregar_usuario(username, nombre, apellido, correo, clave):
     cursor.callproc('SP_AGREGAR_USUARIO',[username, nombre, apellido, correo, clave, salida]) 
     return salida.getvalue()
 
+
+# -------------------------------------------------- Agregar usuario ----------------------
 def registro(request):
+      mens={}
+      #agregar_usuario
+      if request.method == 'POST':
+          username = request.POST.get('username')
+          nombre = request.POST.get('nombre')
+          apellido = request.POST.get('apellido')
+          correo = request.POST.get('correo')
+          clave = request.POST.get('clave')
+          salida = agregar_usuario(username, nombre, apellido, correo, clave)
+          
+          if salida == 1:
+              mens['mensaje'] ='se ha registrado el usuario'
+          else:
+              mens['mensaje']= 'no se ha podido guardar'
+  
+      return render(request, 'registration/registro.html')
 
-    #agregar_usuario
-    if request.method == 'POST':
-        username = request.POST.get('username')
-        nombre = request.POST.get('nombre')
-        apellido = request.POST.get('apellido')
-        correo = request.POST.get('correo')
-        clave = request.POST.get('clave')
-        salida = agregar_usuario(username, nombre, apellido, correo, clave)
-        if salida == 1:
-            print ('se ha registrado el usuario')
-        else:
-            print ('no se ha podido guardar')
+#-------------------------------------------------------------------------------
 
-    return render(request, 'registration/registro.html')
 
 def iniciarsesion(request):
-    return redirect(request, 'registration/login.html')
+    return redirect (request,'registration/login.html')
+
 
 def listado_usuarios(request):
     data = {
         'listado_usuario':sp_listado_usuarios()
     }
-    return render(request, 'registration/listado_usuarios.html', data)
+    return render(request, 'app/listado_usuarios.html', data)
 
 def sp_listado_usuarios():
     django_cursor = connection.cursor()
@@ -84,16 +92,10 @@ def sp_listado_usuarios():
 
 @permission_required('auth.delete_user')
 def eliminar_usuario(request, id):
-    id = request.GET.get('id')
-    django_cursor = connection.cursor()
-    cursor = django_cursor.connection.cursor()
-    cursor.callproc('SP_ELIMINAR_USUARIO',[id])
-    return render(request, 'registration/eliminar_usuario.html')
+    user = get_object_or_404(User, id=id)
+    user.delete()
+    messages.success(request, "Eliminado correctamente")
+    return redirect(to="listado_usuarios")
 
-@permission_required('auth.change_user')
-def modificar_usuario(username, nombre, apellido, correo, clave):
-    django_cursor = connection.cursor()
-    cursor = django_cursor.connection.cursor()
-    salidaUpdate = cursor.var(cx_Oracle.NUMBER)
-    cursor.callproc('SP_MODIFICAR_USUARIO', [username, nombre, apellido, correo, clave])
-    return salidaUpdate.getvalue()
+def usuario(request):
+    return render(request, 'app/usuario.html')

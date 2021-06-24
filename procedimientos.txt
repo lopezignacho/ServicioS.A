@@ -1,0 +1,30 @@
+create or replace procedure sp_listado_usuarios(usuario out SYS_REFCURSOR)
+is
+
+begin
+
+	open usuario for select * from app_usuario;
+end;
+
+
+create or replace procedure sp_agregar_usuario(
+ username varchar2,
+ nombre varchar2,
+ apellido varchar2,
+ correo varchar2,
+ clave varchar2,
+ salida out number
+ )is
+begin
+
+insert into app_usuario(username, nombre, apellido, correo, clave)
+values(username,nombre,apellido,correo,clave);
+commit;
+ salida:=1;
+
+  exception
+  when others then 
+  salida:=0;
+
+end;
+

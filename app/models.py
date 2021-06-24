@@ -20,7 +20,7 @@ class Usuario(models.Model):
     username = models.CharField(max_length=40)
     nombre = models.CharField(max_length=40)
     apellido = models.CharField(max_length=40)
-    correo = models.EmailField()
+    correo = models.CharField(max_length=254)
     clave = models.CharField(max_length=16)
 
     def __str__(self):

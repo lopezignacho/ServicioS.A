@@ -35,7 +35,6 @@ LOGOUT_REDIRECT_URL = '/'
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.humanize'
     'admin_interface',
     'django.contrib.admin',
     'django.contrib.auth',
