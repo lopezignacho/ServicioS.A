@@ -21,10 +21,54 @@ insert into app_usuario(username, nombre, apellido, correo, clave)
 values(username,nombre,apellido,correo,clave);
 commit;
  salida:=1;
+ 
+  exception
+  when others then 
+  salida:=0;
+
+end;
+
+
+
+create or replace procedure sp_modificar_user(
+ v_id int,
+ v_username varchar2,
+ v_nombre varchar2,
+ v_apellido varchar2,
+ v_correo varchar2,
+ v_clave varchar2,
+ salida out number
+ ) is
+ begin
+ UPDATE app_usuario
+set 
+  
+  username = v_username,
+  nombre = v_nombre,
+  apellido = v_apellido,
+  correo = v_correo,
+  clave = v_clave 
+  Where id = v_id;
+  commit;
+ salida:=1;
 
   exception
   when others then 
   salida:=0;
 
 end;
+  
+  
+
+CREATE OR REPLACE PROCEDURE sp_eliminar_user(
+    v_id int)
+is
+BEGIN 
+DELETE
+FROM   app_usuario
+WHERE  id = v_id;
+ 
+END;
+
+
 
