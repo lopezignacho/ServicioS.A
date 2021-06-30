@@ -60,15 +60,21 @@ end;
   
   
 
-CREATE OR REPLACE PROCEDURE sp_eliminar_user(
-    v_id int)
+create or replace PROCEDURE sp_eliminar_user(
+    v_id int,
+    z_salida out number)
 is
 BEGIN 
 DELETE
 FROM   app_usuario
 WHERE  id = v_id;
- 
-END;
+commit;
+ z_salida:=1;
 
+  exception
+  when others then 
+  z_salida:=0;
+
+END;
 
 

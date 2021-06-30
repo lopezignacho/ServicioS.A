@@ -66,9 +66,70 @@ def registro(request):
 
 #-------------------------------------------------------------------------------
 
+#------------------------------- Modificar user ----------------------------------
 
+def modificar_usuario(v_id,v_username, v_nombre, v_apellido, v_correo, v_clave):
+    django_cursor = connection.cursor()
+    cursor = django_cursor.connection.cursor()
+    v_salida = cursor.var(cx_Oracle.NUMBER) 
+    cursor.callproc('SP_MODIFICAR_USER ',[v_id, v_username, v_nombre, v_apellido, v_correo, v_clave, v_salida]) 
+    return v_salida.getvalue()
+
+
+def modificar(request):
+      mens={}
+      #modificar_usuario
+      if request.method == 'POST':
+          v_id= request.POST.get('id')
+          v_username = request.POST.get('username')
+          v_nombre = request.POST.get('nombre')
+          v_apellido = request.POST.get('apellido')
+          v_correo = request.POST.get('correo')
+          v_clave = request.POST.get('clave')
+          v_salida = modificar_usuario(v_id,v_username, v_nombre, v_apellido, v_correo, v_clave)
+          
+          if v_id == id : # Aqui ingresar valor de varible id a colocar en pagna modificar
+           if v_salida == 1:
+               mens['mensaje'] ='se ha modificar el usuario'
+           else:
+               mens['mensaje']= 'no se ha podido modificar'
+          else:
+              mens['mensaje']= 'no se ha podido modificar'
+  
+      return render(request, 'registration/modificar.html')
+
+#---------------------------------------------------------------------------------------
+
+# Eliminar user ------------------------------------------------------------------------
+def eliminar_user(v_id, z_salida):
+    django_cursor = connection.cursor()
+    cursor = django_cursor.connection.cursor()
+    z_salida = cursor.var(cx_Oracle.NUMBER) 
+    cursor.callproc('SP_ELIMINAR_USER',[v_id]) 
+    return z_salida.getvalue()
 def iniciarsesion(request):
-    return redirect (request,'registration/login.html')
+    return redirect (request,'registration/eliminar.html')
+
+
+def modificar(request):
+      mens={}
+      #modificar_usuario
+      if request.method == 'POST':
+          v_id= request.POST.get('id')
+          z_salida = modificar_usuario(v_id)
+          
+          if v_id == id : # Aqui ingresar valor de varible id a colocar en pagna modificar
+           if z_salida == 1:
+               mens['mensaje'] ='se ha eliminar el usuario'
+           else:
+               mens['mensaje']= 'no se ha podido eliminar'
+          else:
+              mens['mensaje']= 'no se ha podido eliminar'
+  
+      return render(request, 'registration/elimnar.html')
+
+
+
 
 
 def listado_usuarios(request):
