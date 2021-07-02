@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import ContactoForm
 from django.http import HttpResponse
 from .forms import CustomUserCreationForm
 from django.contrib.auth import authenticate, login
@@ -16,21 +15,6 @@ def home(request):
     agregar_usuario('lalos', 'palla', 'pollo', 'zz@hot.cl', 321)
     return render(request, 'app/home.html')
 
-@login_required
-def contacto(request):
-    data = {
-        'form': ContactoForm()
-    }
-
-    if request.method == "POST":
-        formulario = ContactoForm(data=request.POST)
-        if formulario.is_valid():
-            formulario.save()
-            data["mensaje"] = "El mensaje ha sido enviado."
-        else:
-            data["form"] = formulario
-            
-    return render(request, 'app/contacto.html', data)
 
 @login_required
 def menu(request):
