@@ -19,3 +19,5 @@ class ProductoAdmin(admin.ModelAdmin):
     search_fields = ["nombre"]
     list_filter = ["marca", "nuevo"]
     list_per_page = 10
+
+

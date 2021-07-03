@@ -12,7 +12,6 @@ import cx_Oracle
 
 @login_required
 def home(request):
-    agregar_usuario('lalos', 'palla', 'pollo', 'zz@hot.cl', 321)
     return render(request, 'app/home.html')
 
 

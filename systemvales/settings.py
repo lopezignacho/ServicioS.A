@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'app.apps.AppConfig',
     'colorfield',
     'crispy_forms',
+    'account'
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -78,6 +79,8 @@ TEMPLATES = [
         },
     },
 ]
+
+AUTH_USER_MODEL = 'account.Cuenta'
 
 WSGI_APPLICATION = 'systemvales.wsgi.application'
 
@@ -126,9 +129,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Santiago'
 
 USE_I18N = True
 
