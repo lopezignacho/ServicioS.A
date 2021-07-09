@@ -11,21 +11,38 @@
 <form action="" method="POST">
     {% csrf_token %}
 
+    <label for="">Contraseña</label>
+    <input type="text" name="password">
+    <br>
+    <label for="">Email</label>
+    <input type="text" name="email">
+    <br>
     <label for="">Username</label>
     <input type="text" name="username">
+    <br>
+    <label for="">rut</label>
+    <input type="text" name="rut">
+    <br>
+    <label for="">dv</label>
+    <input type="text" name="dv">
     <br>
     <label for="">Nombre</label>
     <input type="text" name="nombre">
     <br>
-    <label for="">Apellido</label>
-    <input type="text" name="apellido">
+    <label for="">Apellido Paterno</label>
+    <input type="text" name="apellido_p">
     <br>
-    <label for="">Correo</label>
-    <input type="text" name="correo">
+    <label for="">Apellido Materno</label>
+    <input type="text" name="apellido_m">
     <br>
-    <label for="">Password</label>
-    <input type="text" name="clave">
-    <br>
+ <!-- Combo box por arreglar del agergar, faltan procedimientos almc. de prefil cargo y turno -->
+    <select name="cargo" id="cargo"></select>
+       <option value="">Seleccionar</option>
+         {%for c in cargo %}
+         <option value="{{c.0}}">{{c.1}} </option>
+         {%end for%}
+    
+
     <input type="submit" value="Guardar">
 
 </form>

@@ -20,11 +20,11 @@ def menu(request):
     return render(request, 'app/menu.html')
 
 #@permission_required('auth.add_user')   Error de registro al tener comando (error en '_user' )
-def agregar_usuario(username, nombre, apellido, correo, clave):
+def agregar_usuario(v_password,v_email,v_username,v_rut,v_dv,v_nombre,v_apellido_p,v_apellido_m,v_id_cargo,v_id_perfil,v_id_turno,salida):
     django_cursor = connection.cursor()
     cursor = django_cursor.connection.cursor()
     salida = cursor.var(cx_Oracle.NUMBER) 
-    cursor.callproc('SP_AGREGAR_USUARIO',[username, nombre, apellido, correo, clave, salida]) 
+    cursor.callproc('SP_AGREGAR_USUARIO',[v_password,v_email,v_username,v_rut,v_dv,v_nombre,v_apellido_p,v_apellido_m,v_id_cargo,v_id_perfil,v_id_turno,salida]) 
     return salida.getvalue()
 
 
@@ -33,12 +33,18 @@ def registro(request):
       mens={}
       #agregar_usuario
       if request.method == 'POST':
-          username = request.POST.get('username')
-          nombre = request.POST.get('nombre')
-          apellido = request.POST.get('apellido')
-          correo = request.POST.get('correo')
-          clave = request.POST.get('clave')
-          salida = agregar_usuario(username, nombre, apellido, correo, clave)
+          v_password = request.POST.get('password')
+          v_email = request.POST.get('email')
+          v_username = request.POST.get('username')
+          v_rut = request.POST.get('rut')
+          v_dv = request.POST.get('dv')
+          v_nombre = request.POST.get('nombre')
+          v_apellido_p = request.POST.get('apellido_p')
+          v_apellido_m = request.POST.get('apellido_m')
+          v_id_cargo = request.POST.get('cargo')
+          v_id_perfil = request.POST.get('perfil')
+          v_id_turno = request.POST.get('turno')
+          salida = agregar_usuario(v_password,v_email,v_username,v_rut,v_dv,v_nombre,v_apellido_p,v_apellido_m,v_id_cargo,v_id_perfil,v_id_turno)
           
           if salida == 1:
               mens['mensaje'] ='se ha registrado el usuario'
@@ -47,7 +53,7 @@ def registro(request):
   
       return render(request, 'registration/registro.html')
 
-#-------------------------------------------------------------------------------
+#---------------------------------------------------------------------------------
 
 #------------------------------- Modificar user ----------------------------------
 
@@ -91,7 +97,7 @@ def eliminar_user(v_id, z_salida):
     cursor.callproc('SP_ELIMINAR_USER',[v_id]) 
     return z_salida.getvalue()
 def iniciarsesion(request):
-    return redirect (request,'registration/eliminar.html')
+    return redirect(to="listado_usuarios")
 
 
 def modificar(request):
@@ -127,7 +133,7 @@ def sp_listado_usuarios():
     out_cur = django_cursor.connection.cursor()
 
     cursor.callproc("SP_LIStADO_USUARIOS", [out_cur])
-
+ 
     lista = []
     for fila in out_cur:
         lista.append(fila)

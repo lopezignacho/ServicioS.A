@@ -1,24 +1,32 @@
+--------------------------------------- LISTAR USER----------------------------
+
 create or replace procedure sp_listado_usuarios(usuario out SYS_REFCURSOR)
 is
 
 begin
 
-	open usuario for select * from app_usuario;
+	open usuario for select * from ACCOUNT_CUENTA;
 end;
 
-
+-----------------------------------------AGREGAR USUARIO ------------------------
 create or replace procedure sp_agregar_usuario(
- username varchar2,
- nombre varchar2,
- apellido varchar2,
- correo varchar2,
- clave varchar2,
+ v_password varchar2,
+ v_email varchar2,
+ v_username varchar2,
+ v_rut varchar2,
+ v_dv char,
+ v_nombre varchar2,
+ v_apellido_p varchar2,
+ v_apellido_m varchar2,
+ v_id_cargo char,
+ v_id_perfil char,
+ v_id_turno char,
  salida out number
  )is
 begin
 
-insert into app_usuario(username, nombre, apellido, correo, clave)
-values(username,nombre,apellido,correo,clave);
+insert into account_cuenta(password,email,username,rut_sin_dv,dv,nombre,apellido_p,apellido_m,id_cargo,id_perfil,id_turno)
+values(v_password,v_email,v_username,v_rut,v_dv,v_nombre,v_apellido_p,v_apellido_m,v_id_cargo,v_id_perfil,v_id_turno);
 commit;
  salida:=1;
  
@@ -27,54 +35,3 @@ commit;
   salida:=0;
 
 end;
-
-
-
-create or replace procedure sp_modificar_user(
- v_id int,
- v_username varchar2,
- v_nombre varchar2,
- v_apellido varchar2,
- v_correo varchar2,
- v_clave varchar2,
- salida out number
- ) is
- begin
- UPDATE app_usuario
-set 
-  
-  username = v_username,
-  nombre = v_nombre,
-  apellido = v_apellido,
-  correo = v_correo,
-  clave = v_clave 
-  Where id = v_id;
-  commit;
- salida:=1;
-
-  exception
-  when others then 
-  salida:=0;
-
-end;
-  
-  
-
-create or replace PROCEDURE sp_eliminar_user(
-    v_id int,
-    z_salida out number)
-is
-BEGIN 
-DELETE
-FROM   app_usuario
-WHERE  id = v_id;
-commit;
- z_salida:=1;
-
-  exception
-  when others then 
-  z_salida:=0;
-
-END;
-
-
